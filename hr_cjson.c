@@ -57,6 +57,7 @@
 #endif
 
 #include "hr_cjson.h"
+#include "mqttd.h"
 
 /* define our own boolean type */
 #ifdef true
@@ -183,7 +184,8 @@ static void * CJSON_CDECL internal_realloc(void *pointer, size_t size)
 /* strlen of character literals resolved at compile time */
 #define static_strlen(string_literal) (sizeof(string_literal) - sizeof(""))
 
-static internal_hooks global_hooks = { internal_malloc, internal_free, internal_realloc };
+//static internal_hooks global_hooks = { internal_malloc, internal_free, internal_realloc };
+static internal_hooks global_hooks = { mqtt_malloc, mqtt_free, mqtt_realloc };
 
 static unsigned char* cJSON_strdup(const unsigned char* string, const internal_hooks * const hooks)
 {
